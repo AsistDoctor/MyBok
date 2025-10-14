@@ -1,0 +1,146 @@
+/* Планшеты и небольшие экраны */
+@media (max-width: 992px) {
+    .book-title {
+        font-size: 2rem;
+    }
+    
+    .reading-area {
+        padding: 30px;
+    }
+    
+    .text-content {
+        font-size: 1rem;
+    }
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 10px 15px;
+    }
+    
+    .main-nav {
+        display: none;
+    }
+    
+    .auth-section .auth-btn .btn-text {
+        display: none;
+    }
+    
+    .auth-btn {
+        padding: 8px;
+    }
+    
+    .user-name {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+    
+    main {
+        margin-top: 70px;
+    }
+    
+    .book-header-section {
+        padding: 20px 0;
+    }
+    
+    .book-title {
+        font-size: 1.8rem;
+    }
+    
+    .book-meta {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .reading-section {
+        padding: 20px 0;
+    }
+    
+    .reading-toolbar {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+    }
+    
+    .toolbar-btn {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 5px;
+    }
+    
+    .chapter-info {
+        margin: 0 10px;
+        font-size: 0.9rem;
+    }
+    
+    .reading-area {
+        padding: 20px;
+    }
+    
+    .chapter-title {
+        font-size: 1.5rem;
+    }
+    
+    .reading-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .settings-panel {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 480px) {
+    .header-container {
+        padding: 8px 10px;
+    }
+    
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .social-auth {
+        grid-template-columns: 1fr;
+    }
+    
+    .book-title {
+        font-size: 1.5rem;
+    }
+    
+    .reading-area {
+        padding: 15px;
+    }
+    
+    .chapter-title {
+        font-size: 1.3rem;
+    }
+    
+    .text-content {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+}

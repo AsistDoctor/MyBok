@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Читалка - Ваш персональный читательский уголок</title>
+    <meta name="description" content="Читалка - удобное приложение для чтения книг онлайн с персонализацией и сохранением прогресса">
+    
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/reader.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
+</head>
+<body>
+    <!-- Фиксированный header -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <!-- Логотип и название -->
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="images/icons/book-icon.svg" alt="Иконка книги" class="logo-icon">
+                    <span class="logo-text">Читалка</span>
+                </div>
+            </div>
+            
+            <!-- Основная навигация -->
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#about" class="nav-link">О проекте</a></li>
+                    <li class="nav-item"><a href="#goals" class="nav-link">Цели проекта</a></li>
+                    <li class="nav-item"><a href="#library" class="nav-link">Библиотека</a></li>
+                    <li class="nav-item"><a href="#reading" class="nav-link">Читать</a></li>
+                    <li class="nav-item"><a href="#contacts" class="nav-link">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Кнопки авторизации -->
+            <div class="auth-section">
+                <button class="auth-btn login-btn" id="loginBtn" aria-label="Войти в аккаунт">
+                    <span class="btn-icon">🔐</span>
+                    <span class="btn-text">Вход</span>
+                </button>
+                <button class="auth-btn register-btn" id="registerBtn" aria-label="Зарегистрироваться">
+                    <span class="btn-icon">📝</span>
+                    <span class="btn-text">Регистрация</span>
+                </button>
+                
+                <!-- Меню пользователя (будет показано после входа) -->
+                <div class="user-menu hidden" id="userMenu">
+                    <button class="user-btn" id="userToggle">
+                        <img src="images/icons/user-default.svg" alt="Аватар пользователя" class="user-avatar">
+                        <span class="user-name" id="userName">Пользователь</span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" class="dropdown-item">Мой профиль</a>
+                        <a href="#" class="dropdown-item">Мои книги</a>
+                        <a href="#" class="dropdown-item">Настройки</a>
+                        <hr class="dropdown-divider">
+                        <a href="#" class="dropdown-item logout-btn">Выйти</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Кнопка меню для мобильных устройств -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Мобильное меню -->
+        <div class="mobile-menu hidden" id="mobileMenu">
+            <nav class="mobile-nav">
+                <ul class="mobile-nav-list">
+                    <li><a href="#about" class="mobile-nav-link">О проекте</a></li>
+                    <li><a href="#goals" class="mobile-nav-link">Цели проекта</a></li>
+                    <li><a href="#library" class="mobile-nav-link">Библиотека</a></li>
+                    <li><a href="#reading" class="mobile-nav-link">Читать</a></li>
+                    <li><a href="#contacts" class="mobile-nav-link">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-auth">
+                <button class="mobile-auth-btn login-btn" id="mobileLoginBtn">Вход</button>
+                <button class="mobile-auth-btn register-btn" id="mobileRegisterBtn">Регистрация</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основное содержимое страницы -->
+    <main id="mainContent">
+        <!-- Заголовок с названием книги -->
+        <section class="book-header-section">
+            <div class="container">
+                <div class="book-header">
+                    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+                        <ol class="breadcrumbs-list">
+                            <li class="breadcrumbs-item">
+                                <a href="index.html" class="breadcrumbs-link">Главная</a>
+                            </li>
+                            <li class="breadcrumbs-item">
+                                <a href="library.html" class="breadcrumbs-link">Библиотека</a>
+                            </li>
+                            <li class="breadcrumbs-item" aria-current="page">
+                                <span id="currentBookCategory">Русская классика</span>
+                            </li>
+                        </ol>
+                    </nav>
+                    
+                    <h1 class="book-title" id="bookTitle">Преступление и наказание</h1>
+                    <div class="book-meta">
+                        <span class="book-author" id="bookAuthor">Фёдор Достоевский</span>
+                        <span class="book-year" id="bookYear">1866</span>
+                        <span class="book-genre" id="bookGenre">Роман</span>
+                    </div>
+                    
+                    <div class="reading-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+                        </div>
+                        <span class="progress-text" id="progressText">Прочитано 25%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Область чтения -->
+        <section class="reading-section">
+            <div class="container">
+                <div class="reading-area-container">
+                    <!-- Панель инструментов чтения -->
+                    <div class="reading-toolbar">
+                        <button class="toolbar-btn" id="fontDecrease" title="Уменьшить шрифт">
+                            <span class="toolbar-icon">A-</span>
+                        </button>
+                        <button class="toolbar-btn" id="fontIncrease" title="Увеличить шрифт">
+                            <span class="toolbar-icon">A+</span>
+                        </button>
+                        <button class="toolbar-btn" id="themeToggle" title="Сменить тему">
+                            <span class="toolbar-icon" id="themeIcon">🌙</span>
+                        </button>
+                        <button class="toolbar-btn" id="bookmarkBtn" title="Добавить закладку">
+                            <span class="toolbar-icon">🔖</span>
+                        </button>
+                        <div class="toolbar-spacer"></div>
+                        <button class="toolbar-btn" id="prevChapter" title="Предыдущая глава">
+                            <span class="toolbar-icon">◀</span>
+                        </button>
+                        <span class="chapter-info" id="chapterInfo">Глава 1 из 10</span>
+                        <button class="toolbar-btn" id="nextChapter" title="Следующая глава">
+                            <span class="toolbar-icon">▶</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Основная область текста -->
+                    <div class="reading-area" id="readingArea">
+                        <article class="book-content">
+                            <h2 class="chapter-title" id="chapterTitle">Часть первая, I</h2>
+                            <div class="text-content" id="textContent">
+                                <p>В начале июля, в чрезвычайно жаркое время, под вечер, один молодой человек вышел из своей каморки, которую нанимал от жильцов в С-м переулке, на улицу и медленно, как бы в нерешимости, отправился к К-ну мосту.</p>
+                                <p>Он благополучно избегнул встречи с своею хозяйкой на лестнице. Каморка его приходилась под самою кровлей высокого пятиэтажного дома и походила более на шкаф, чем на квартиру. Квартирная же хозяйка его, у которой он нанимал эту каморку с обедом и прислугой, помещалась одною лестницей ниже, в отдельной квартире, и каждый раз, при выходе на улицу, ему непременно надо было проходить мимо хозяйкиной кухни, почти всегда настежь отворенной на лестницу. И каждый раз молодой человек, проходя мимо, чувствовал какое-то болезненное и трусливое ощущение, которого стыдился и от которого морщился. Он был должен кругом хозяйке и боялся с нею встретиться.</p>
+                                <p>Не то чтобы он был так труслив и забит, совсем даже напротив; но с некоторого времени он был в раздражительном и напряженном состоянии, похожем на ипохондрию. Он до того углубился в себя и уединился от всех, что боялся даже всякой встречи, не только встречи с хозяйкой. Он был задавлен бедностью; но даже стесненное положение его перестало в последнее время тяготить его. Никакие дела свои он не хотел вести, да и не хотел о них думать. На самом деле он никого не боялся, и ни перед кем не стеснялся, но он все более и более уединялся и уходил в себя.</p>
+                            </div>
+                        </article>
+                    </div>
+                    
+                    <!-- Панель навигации внизу -->
+                    <div class="reading-navigation">
+                        <button class="nav-btn secondary" id="saveProgressBtn">
+                            <span class="btn-icon">💾</span>
+                            Сохранить прогресс
+                        </button>
+                        <button class="nav-btn primary" id="continueReadingBtn">
+                            Продолжить чтение
+                            <span class="btn-icon">▶</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Боковая панель настроек (скрыта по умолчанию) -->
+        <aside class="settings-panel hidden" id="settingsPanel">
+            <div class="settings-header">
+                <h3>Настройки чтения</h3>
+                <button class="close-settings" id="closeSettings">×</button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <label for="fontFamily">Шрифт:</label>
+                    <select id="fontFamily">
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="lineHeight">Межстрочный интервал:</label>
+                    <select id="lineHeight">
+                        <option value="1.4">Компактный</option>
+                        <option value="1.6" selected>Стандартный</option>
+                        <option value="1.8">Просторный</option>
+                        <option value="2.0">Очень просторный</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="textAlign">Выравнивание:</label>
+                    <select id="textAlign">
+                        <option value="left">По левому краю</option>
+                        <option value="justify" selected>По ширине</option>
+                        <option value="center">По центру</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="marginSize">Отступы:</label>
+                    <select id="marginSize">
+                        <option value="10px">Узкие</option>
+                        <option value="20px" selected>Стандартные</option>
+                        <option value="30px">Широкие</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="nightMode"> Ночной режим
+                    </label>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Модальное окно входа -->
+    <div class="modal" id="loginModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Вход в аккаунт</h2>
+                <button class="modal-close" id="closeLoginModal">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email или логин:</label>
+                        <input type="text" id="loginEmail" name="login" required autocomplete="username">
+                        <span class="error-message" id="loginEmailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль:</label>
+                        <input type="password" id="loginPassword" name="password" required autocomplete="current-password">
+                        <span class="error-message" id="loginPasswordError"></span>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe" name="remember">
+                            <span class="checkmark"></span>
+                            Запомнить меня
+                        </label>
+                        <a href="#" class="forgot-password">Забыли пароль?</a>
+                    </div>
+                    <button type="submit" class="submit-btn primary">Войти</button>
+                </form>
+                <div class="auth-divider">
+                    <span>или войти с помощью</span>
+                </div>
+                <div class="social-auth">
+                    <button class="social-btn google-btn">
+                        <span class="social-icon">G</span>
+                        Google
+                    </button>
+                    <button class="social-btn vk-btn">
+                        <span class="social-icon">VK</span>
+                        ВКонтакте
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p>Ещё нет аккаунта? <a href="#" id="switchToRegister">Зарегистрироваться</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div class="modal" id="registerModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Регистрация</h2>
+                <button class="modal-close" id="closeRegisterModal">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="regUsername">Имя пользователя:</label>
+                        <input type="text" id="regUsername" name="username" required autocomplete="username">
+                        <span class="error-message" id="regUsernameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email:</label>
+                        <input type="email" id="regEmail" name="email" required autocomplete="email">
+                        <span class="error-message" id="regEmailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Пароль:</label>
+                        <input type="password" id="regPassword" name="password" required autocomplete="new-password">
+                        <span class="error-message" id="regPasswordError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPasswordConfirm">Подтвердите пароль:</label>
+                        <input type="password" id="regPasswordConfirm" name="passwordConfirm" required autocomplete="new-password">
+                        <span class="error-message" id="regPasswordConfirmError"></span>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                            <span class="checkmark"></span>
+                            Я согласен с <a href="#">условиями использования</a> и <a href="#">политикой конфиденциальности</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn primary">Зарегистрироваться</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p>Уже есть аккаунт? <a href="#" id="switchToLogin">Войти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Читалка</h3>
+                    <p>Ваш персональный читательский уголок в цифровом мире.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">О проекте</a></li>
+                        <li><a href="#goals">Цели проекта</a></li>
+                        <li><a href="#library">Библиотека</a></li>
+                        <li><a href="#reading">Читать</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Помощь</a></li>
+                        <li><a href="#">Обратная связь</a></li>
+                        <li><a href="#">Сообщить об ошибке</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@chitalka.ru">support@chitalka.ru</a></li>
+                        <li><a href="#">Телеграм</a></li>
+                        <li><a href="#">ВКонтакте</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Читалка. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключение JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/reader.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
