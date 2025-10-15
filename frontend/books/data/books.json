@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "title": "Мастер и Маргарита",
+    "author": "Михаил Булгаков",
+    "cover": "../images/covers/master.jpg",
+    "description": "Роман о добре и зле, любви и творчестве",
+    "genre": "Классика",
+    "file": "content/master.txt",
+    "chapters": 32,
+    "year": 1966
+  },
+  {
+    "id": 2,
+    "title": "Мёртвые души", 
+    "author": "Гоголь",
+    "cover": "../images/covers/dead.jpg",
+    "description": "",
+    "genre": "Классика", 
+    "file": "content/deadsouls.txt",
+    "chapters": 28,
+    "year": 1866
+  },
+  {
+    "id": 3,
+    "title": "Дубровский Капитанская дочка",
+    "author": "Пушкин",
+    "cover": "../images/covers/war.jpg",
+    "description": "",
+    "genre": "Классика",
+    "file": "content/doobrovsky.txt", 
+    "chapters": 15,
+    "year": 1869
+  }
+]

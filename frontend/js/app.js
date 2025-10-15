@@ -8,6 +8,7 @@ const app = {
         themeManager.init();
         authManager.init();
         readerManager.init();
+        bookManager.init();
         
         // Настройка глобальных обработчиков
         this.setupGlobalEventListeners();
