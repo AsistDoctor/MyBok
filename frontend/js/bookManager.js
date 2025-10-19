@@ -11,14 +11,28 @@ const bookManager = {
     // Загрузка списка книг
     loadBooks: async function() {
         try {
-            const response = await fetch('./books/data/books.json');
+            // Пробуем загрузить с API
+            let response = await fetch('/api/books');
+            
+            if (response.ok) {
+                const apiData = await response.json();
+                if (apiData.success) {
+                    this.allBooks = apiData.data;
+                    console.log(`✅ Загружено ${this.allBooks.length} книг с API`);
+                    return this.allBooks;
+                }
+            }
+            
+            // Fallback - загружаем из локального файла
+            console.log('📁 API недоступно, загружаем из локального файла');
+            response = await fetch('./books/data/books.json');
             
             if (!response.ok) {
                 throw new Error('Не удалось загрузить книги');
             }
             
             this.allBooks = await response.json();
-            console.log(`✅ Загружено ${this.allBooks.length} книг`);
+            console.log(`✅ Загружено ${this.allBooks.length} книг из файла`);
             return this.allBooks;
         } catch (error) {
             console.error('❌ Ошибка загрузки книг:', error);
@@ -45,7 +59,23 @@ const bookManager = {
                 throw new Error('Книга не найдена');
             }
             
-            const response = await fetch(`./books/${book.file}`);
+            // Пробуем загрузить с API
+            let response = await fetch(`/api/books/${bookId}/content`);
+            
+            if (response.ok) {
+                const apiData = await response.json();
+                if (apiData.success) {
+                    console.log(`✅ Загружен контент книги "${apiData.data.title}" с API`);
+                    return {
+                        ...apiData.data,
+                        chapters: this.parseChapters(apiData.data.content)
+                    };
+                }
+            }
+            
+            // Fallback - загружаем из локального файла
+            console.log('📁 API недоступно, загружаем из локального файла');
+            response = await fetch(`./books/${book.file}`);
             
             if (!response.ok) {
                 throw new Error('Не удалось загрузить текст книги');

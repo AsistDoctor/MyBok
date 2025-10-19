@@ -1,0 +1,341 @@
+/* Стили для разделов "О проекте" и "Цели проекта" */
+
+/* Общие стили для секций */
+.about-section,
+.goals-section {
+    padding: 4rem 0;
+    position: relative;
+}
+
+.about-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.goals-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Стили для секции "О проекте" */
+.about-content {
+    display: grid;
+    gap: 3rem;
+}
+
+.about-text {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.about-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.about-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.about-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.about-features {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.about-features h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.features-list {
+    list-style: none;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.features-list strong {
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.features-list p {
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Стили для секции "Цели проекта" */
+.goals-content {
+    display: grid;
+    gap: 3rem;
+}
+
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.goal-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.goal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.goal-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.goal-card:hover::before {
+    opacity: 1;
+}
+
+.goal-card.primary::before {
+    background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+}
+
+.goal-card.secondary::before {
+    background: linear-gradient(90deg, #4ecdc4, #44a08d);
+}
+
+.goal-card.accent::before {
+    background: linear-gradient(90deg, #45b7d1, #2196f3);
+}
+
+.goal-card.success::before {
+    background: linear-gradient(90deg, #96ceb4, #4caf50);
+}
+
+.goal-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+}
+
+.goal-card h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.goal-card p {
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mission-statement {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.mission-content h3 {
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.mission-content blockquote {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.95);
+    position: relative;
+}
+
+.mission-content blockquote::before {
+    content: '"';
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+}
+
+.mission-author {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+/* Темная тема */
+.dark-theme .about-section {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+}
+
+.dark-theme .about-card {
+    background: var(--card-bg-dark);
+    color: var(--text-color);
+}
+
+.dark-theme .about-card h3 {
+    color: #bb86fc;
+}
+
+.dark-theme .about-features {
+    background: var(--card-bg-dark);
+}
+
+.dark-theme .about-features h3 {
+    color: #bb86fc;
+}
+
+.dark-theme .feature-icon {
+    background: #bb86fc;
+}
+
+.dark-theme .features-list strong {
+    color: #bb86fc;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .about-section,
+    .goals-section {
+        padding: 2rem 0;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .about-text {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .about-card,
+    .about-features {
+        padding: 1.5rem;
+    }
+    
+    .goals-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .goal-card {
+        padding: 1.5rem;
+    }
+    
+    .mission-statement {
+        padding: 2rem;
+    }
+    
+    .mission-content blockquote {
+        font-size: 1.1rem;
+    }
+    
+    .features-list li {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .about-card,
+    .goal-card {
+        padding: 1rem;
+    }
+    
+    .mission-statement {
+        padding: 1.5rem;
+    }
+}

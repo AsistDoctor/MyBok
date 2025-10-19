@@ -37,10 +37,35 @@
     
     .mobile-menu-toggle {
         display: flex;
+        cursor: pointer;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        z-index: 1001;
+        position: relative;
+    }
+    
+    .mobile-menu-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+    
+    .mobile-menu-toggle.active {
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    
+    .mobile-menu {
+        transition: all 0.3s ease;
+        transform: translateY(-100%);
+        opacity: 0;
     }
     
     .mobile-menu.active {
-        display: block;
+        display: block !important;
+        transform: translateY(0);
+        opacity: 1;
     }
     
     main {

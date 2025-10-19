@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Читалка - Мобильный тест</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .status {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 200px;
+        }
+        
+        .button:hover, .button:active {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .info {
+            margin: 15px 0;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .books-test {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .book-item {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .loading {
+            color: #FFC107;
+        }
+        
+        .success {
+            color: #4CAF50;
+        }
+        
+        .error {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 Читалка</h1>
+        <div class="subtitle">Мобильная версия</div>
+        
+        <div class="status">
+            <div class="success">✅ Подключение к серверу работает!</div>
+            <div class="info">📱 Устройство: <span id="device">Определяется...</span></div>
+            <div class="info">🌐 IP: <span id="ip">192.168.1.4:3000</span></div>
+        </div>
+        
+        <button class="button" onclick="testAPI()">🔧 Тест API</button>
+        <button class="button secondary" onclick="loadBooks()">📚 Загрузить книги</button>
+        
+        <div id="result" class="books-test" style="display: none;">
+            <h3>Результат теста:</h3>
+            <div id="test-content"></div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <a href="/" class="button">🚀 Перейти к полной версии</a>
+        </div>
+    </div>
+
+    <script>
+        // Определяем устройство
+        const userAgent = navigator.userAgent;
+        let deviceInfo = 'Неизвестно';
+        
+        if (/Android/i.test(userAgent)) {
+            deviceInfo = 'Android';
+        } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+            deviceInfo = 'iOS';
+        } else if (/Windows/i.test(userAgent)) {
+            deviceInfo = 'Windows';
+        }
+        
+        document.getElementById('device').textContent = deviceInfo;
+        
+        // Тест API
+        async function testAPI() {
+            const result = document.getElementById('result');
+            const content = document.getElementById('test-content');
+            
+            result.style.display = 'block';
+            content.innerHTML = '<div class="loading">🔄 Тестируем API...</div>';
+            
+            try {
+                const response = await fetch('/api');
+                const data = await response.json();
+                
+                content.innerHTML = `
+                    <div class="success">✅ API работает отлично!</div>
+                    <div class="info">Версия: ${data.version}</div>
+                    <div class="info">Автор: ${data.author}</div>
+                `;
+            } catch (error) {
+                content.innerHTML = `<div class="error">❌ Ошибка API: ${error.message}</div>`;
+            }
+        }
+        
+        // Загрузка книг
+        async function loadBooks() {
+            const result = document.getElementById('result');
+            const content = document.getElementById('test-content');
+            
+            result.style.display = 'block';
+            content.innerHTML = '<div class="loading">📚 Загружаем книги...</div>';
+            
+            try {
+                const response = await fetch('/api/books');
+                const data = await response.json();
+                
+                if (data.success && data.data.length > 0) {
+                    let booksHtml = `<div class="success">✅ Загружено ${data.data.length} книг:</div>`;
+                    
+                    data.data.forEach(book => {
+                        booksHtml += `
+                            <div class="book-item">
+                                <strong>${book.title}</strong><br>
+                                <small>${book.author} (${book.year})</small>
+                            </div>
+                        `;
+                    });
+                    
+                    content.innerHTML = booksHtml;
+                } else {
+                    content.innerHTML = '<div class="error">❌ Книги не найдены</div>';
+                }
+            } catch (error) {
+                content.innerHTML = `<div class="error">❌ Ошибка загрузки: ${error.message}</div>`;
+            }
+        }
+        
+        // Автоматический тест при загрузке
+        setTimeout(() => {
+            testAPI();
+        }, 1000);
+    </script>
+</body>
+</html>

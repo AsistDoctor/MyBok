@@ -7,7 +7,11 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "network": "cd backend && npm run network",
+    "install-backend": "cd backend && npm install"
   },
   "author": "asistdoctor",
   "license": "ISC"

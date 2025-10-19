@@ -1,0 +1,332 @@
+/* Стили для пасхальной кнопки и модального окна разработчиков */
+
+/* Пасхальная кнопка */
+.easter-egg-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+    padding: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.easter-egg-btn:hover {
+    opacity: 1;
+    transform: scale(1.2) rotate(10deg);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom {
+    position: relative;
+}
+
+/* Модальное окно разработчиков */
+.developers-modal {
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.developers-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Главный разработчик */
+.main-dev {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.main-dev .dev-avatar {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* Фото разработчика */
+.photo-avatar {
+    position: relative;
+    display: inline-block;
+}
+
+.dev-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.dev-photo:hover {
+    transform: scale(1.05);
+}
+
+.crown-badge {
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    animation: crown-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes crown-glow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+
+.main-dev h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.main-dev .dev-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.main-dev .dev-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+/* Сетка соразработчиков */
+.developers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.developer-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.developer-card:hover {
+    transform: translateY(-4px);
+}
+
+.dev-avatar {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.dev-info h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.dev-role {
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.dev-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+/* Навыки */
+.dev-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.main-dev .skill {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Статистика проекта */
+.project-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Сообщение команды */
+.team-message {
+    background: rgba(var(--primary-color-rgb, 74, 144, 226), 0.1);
+    border-left: 4px solid var(--primary-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-style: italic;
+}
+
+.team-message p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Темная тема */
+.dark-theme .developer-card {
+    background: var(--card-bg-dark);
+}
+
+.dark-theme .dev-info h4 {
+    color: #bb86fc;
+}
+
+.dark-theme .skill {
+    background: #bb86fc;
+}
+
+.dark-theme .stat-number {
+    color: #bb86fc;
+}
+
+.dark-theme .project-stats {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+}
+
+.dark-theme .team-message {
+    background: rgba(187, 134, 252, 0.1);
+    border-left-color: #bb86fc;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .developers-modal {
+        max-width: 95vw;
+        margin: 1rem;
+    }
+    
+    .developers-content {
+        gap: 1.5rem;
+    }
+    
+    .main-dev {
+        padding: 1.5rem;
+    }
+    
+    .main-dev .dev-avatar {
+        font-size: 3rem;
+    }
+    
+    .main-dev .dev-name {
+        font-size: 1.5rem;
+    }
+    
+    .dev-photo {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .crown-badge {
+        width: 40px;
+        height: 40px;
+        font-size: 2rem;
+        top: -10px;
+        right: -5px;
+    }
+    
+    .developers-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .developer-card {
+        padding: 1rem;
+    }
+    
+    .project-stats {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .easter-egg-btn {
+        right: 10px;
+        bottom: 5px;
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-dev h3 {
+        font-size: 1.3rem;
+    }
+    
+    .main-dev .dev-name {
+        font-size: 1.3rem;
+    }
+}

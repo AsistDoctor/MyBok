@@ -72,7 +72,4 @@ const themeManager = {
     }
 };
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    themeManager.init();
-});
+// Инициализация вызывается из app.js

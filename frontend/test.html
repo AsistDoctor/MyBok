@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест - Читалка</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .test-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .status {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .info {
+            color: #2196F3;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-card">
+        <h1>🧪 Тест подключения</h1>
+        <div class="status success">✅ Сервер работает!</div>
+        <div class="status info">📱 Мобильное устройство подключено</div>
+        <div class="status info">🌐 IP: <span id="ip">Определяется...</span></div>
+        <div class="status info">📅 Время: <span id="time">Загружается...</span></div>
+        
+        <button onclick="testAPI()">Тест API</button>
+        <button onclick="goToMain()">Перейти к приложению</button>
+        
+        <div id="result" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        // Показать текущее время
+        document.getElementById('time').textContent = new Date().toLocaleString('ru-RU');
+        
+        // Показать IP (приблизительно)
+        document.getElementById('ip').textContent = window.location.hostname;
+        
+        // Тест API
+        async function testAPI() {
+            const result = document.getElementById('result');
+            result.innerHTML = '<div style="color: yellow;">🔄 Тестируем API...</div>';
+            
+            try {
+                const response = await fetch('/api');
+                const data = await response.json();
+                
+                result.innerHTML = `
+                    <div style="color: #4CAF50;">✅ API работает!</div>
+                    <div style="font-size: 0.9rem; margin-top: 10px;">
+                        Версия: ${data.version}<br>
+                        Автор: ${data.author}
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `<div style="color: #f44336;">❌ Ошибка API: ${error.message}</div>`;
+            }
+        }
+        
+        // Переход к основному приложению
+        function goToMain() {
+            window.location.href = '/';
+        }
+        
+        // Автоматический тест при загрузке
+        setTimeout(testAPI, 1000);
+    </script>
+</body>
+</html>

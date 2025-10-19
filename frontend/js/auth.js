@@ -276,7 +276,4 @@ const authManager = {
     }
 };
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    authManager.init();
-});
+// Инициализация вызывается из app.js

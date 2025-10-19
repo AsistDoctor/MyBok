@@ -44,37 +44,34 @@ const readerManager = {
         utils.on(utils.get('fontDecrease'), 'click', () => this.changeFontSize(-1));
         utils.on(utils.get('fontIncrease'), 'click', () => this.changeFontSize(1));
         
-        // Навигация по главам
-        // utils.on(utils.get('prevChapter'), 'click', () => this.navigateChapter(-1));
-        // utils.on(utils.get('nextChapter'), 'click', () => this.navigateChapter(1));
-        // utils.on(utils.get('continueReadingBtn'), 'click', () => this.continueReading());
-
         // Навигация по страницам
-        let prevClickHandled = false;
-        let nextClickHandled = false;
-
-        utils.on(utils.get('prevChapter'), 'click', (event) => {
-            event.preventDefault();
-            if (!prevClickHandled) {
-                prevClickHandled = true;
-                setTimeout(() => prevClickHandled = false, 300); // задержка
+        const prevBtn = utils.get('prevChapter');
+        const nextBtn = utils.get('nextChapter');
+        
+        if (prevBtn && !prevBtn.hasAttribute('data-listener-added')) {
+            utils.on(prevBtn, 'click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
                 console.log('🔼 Кнопка "Назад" нажата');
                 this.navigateChapter(-1);
-            }
-        }, false);
+            });
+            prevBtn.setAttribute('data-listener-added', 'true');
+        }
 
-        utils.on(utils.get('nextChapter'), 'click', (event) => {
-            event.preventDefault();
-            if (!nextClickHandled) {
-                nextClickHandled = true;
-                setTimeout(() => nextClickHandled = false, 300); // задержка
+        if (nextBtn && !nextBtn.hasAttribute('data-listener-added')) {
+            utils.on(nextBtn, 'click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log('🔽 Кнопка "Вперед" нажата');
                 this.navigateChapter(1);
-            }
-        }, false);
+            });
+            nextBtn.setAttribute('data-listener-added', 'true');
+        }
         
         // Закладки и сохранение
         utils.on(utils.get('bookmarkBtn'), 'click', () => this.toggleBookmark());
         utils.on(utils.get('saveProgressBtn'), 'click', () => this.saveProgress());
+        utils.on(utils.get('backToLibraryBtn'), 'click', () => this.backToLibrary());
         
         // Настройки чтения
         utils.on(utils.get('fontFamily'), 'change', (e) => this.updateSetting('fontFamily', e.target.value));
@@ -139,21 +136,21 @@ loadBook: async function(bookId) {
     displayCurrentPage: function() {
 
         console.log('🎯 displayCurrentPage вызвана');
-        if (!this.currentBook) {
-            console.log('❌ Нет currentBook');
-            return;
-        }
+        // if (!this.currentBook) {
+        //     console.log('❌ Нет currentBook');
+        //     return;
+        // }
         
-        if (!this.currentBook.pages) {
-            console.log('❌ Нет pages в currentBook');
-            return;
-        }
+        // if (!this.currentBook.pages) {
+        //     console.log('❌ Нет pages в currentBook');
+        //     return;
+        // }
         
         const page = this.currentBook.pages[this.settings.currentPage];
-        if (!page) {
-            console.log('❌ Страница не найдена:', this.settings.currentPage);
-            return;
-        }
+        // if (!page) {
+        //     console.log('❌ Страница не найдена:', this.settings.currentPage);
+        //     return;
+        // }
         console.log('📖 Отображаем страницу:', page.number);
         
         
@@ -163,7 +160,7 @@ loadBook: async function(bookId) {
         const chapterInfo = utils.get('chapterInfo');
         
         if (chapterTitle) {
-            chapterTitle.textContent = `${this.currentBook.title} - Страница ${page.number}`;
+            chapterTitle.textContent = `Страница ${page.number}`;
         }
         
         if (textContent) {
@@ -174,7 +171,7 @@ loadBook: async function(bookId) {
             chapterInfo.textContent = `Страница ${page.number} из ${this.currentBook.pages.length}`;
         }
         
-        this.updateProgress();
+        // this.updateProgress();
     },
 
 // Форматирование содержимого страницы
@@ -226,32 +223,39 @@ formatPageContent: function(content) {
         return `<p>${cleanText}</p>`;
     }).join('');
 },
-    // Отобразить информацию о книге
-displayBook: function() {
-    if (!this.currentBook) return;
+//     // Отобразить информацию о книге
+// displayBook: function() {
+//     if (!this.currentBook) return;
     
-    // Обновить информацию о книге
-    utils.get('bookTitle').textContent = this.currentBook.title;
-    utils.get('bookAuthor').textContent = this.currentBook.author;
+//     // Обновить информацию о книге
+//     utils.get('bookTitle').textContent = this.currentBook.title;
+//     utils.get('bookAuthor').textContent = this.currentBook.author;
     
-    // Если есть дополнительные поля
-    if (utils.get('bookYear')) {
-        utils.get('bookYear').textContent = this.currentBook.year || '';
-    }
-    if (utils.get('bookGenre')) {
-        utils.get('bookGenre').textContent = this.currentBook.genre || '';
-    }
+//     // Если есть дополнительные поля
+//     if (utils.get('bookYear')) {
+//         utils.get('bookYear').textContent = this.currentBook.year || '';
+//     }
+//     if (utils.get('bookGenre')) {
+//         utils.get('bookGenre').textContent = this.currentBook.genre || '';
+//     }
     
-    // Отобразить весь текст книги
-    this.displayBookContent();
-},
+//     // Отобразить весь текст книги
+//     this.displayBookContent();
+// },
 
     displayBook: function() {
         if (!this.currentBook) return;
         
         // Обновить информацию о книге
-        utils.get('bookTitle').textContent = this.currentBook.title;
-        utils.get('bookAuthor').textContent = this.currentBook.author;
+        const bookTitle = utils.get('bookTitle');
+        const bookAuthor = utils.get('bookAuthor');
+        const bookYear = utils.get('bookYear');
+        const bookGenre = utils.get('bookGenre');
+        
+        if (bookTitle) bookTitle.textContent = this.currentBook.title;
+        if (bookAuthor) bookAuthor.textContent = this.currentBook.author;
+        if (bookYear) bookYear.textContent = this.currentBook.year || '';
+        if (bookGenre) bookGenre.textContent = this.currentBook.genre || '';
         
         // Отобразить первую страницу
         this.displayCurrentPage();
@@ -462,10 +466,20 @@ splitIntoPages: function(content) {
     closeSettingsPanel: function() {
         const settingsPanel = utils.get('settingsPanel');
         settingsPanel.classList.remove('active');
+    },
+    
+    // Вернуться к библиотеке
+    backToLibrary: function() {
+        // Сохраняем прогресс перед выходом
+        this.saveProgress();
+        
+        // Показываем библиотеку
+        if (typeof libraryManager !== 'undefined') {
+            libraryManager.showLibrary();
+        }
+        
+        authManager.showNotification('Прогресс сохранен', 'success');
     }
 };
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    readerManager.init();
-});
+// Инициализация вызывается из app.js

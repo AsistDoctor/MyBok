@@ -9,6 +9,8 @@ const app = {
         authManager.init();
         readerManager.init();
         bookManager.init();
+        libraryManager.init();
+        navigationManager.init();
         
         // Настройка глобальных обработчиков
         this.setupGlobalEventListeners();
@@ -36,6 +38,7 @@ const app = {
             // Закрыть мобильное меню при клике на ссылку
             if (window.innerWidth <= 768) {
                 if (e.target.classList.contains('mobile-nav-link')) {
+                    console.log('📱 Клик по ссылке в мобильном меню');
                     this.toggleMobileMenu();
                 }
             }
@@ -43,6 +46,9 @@ const app = {
         
         // Обработка мобильного меню
         utils.on(utils.get('mobileMenuToggle'), 'click', () => this.toggleMobileMenu());
+        
+        // Пасхальная кнопка
+        utils.on(utils.get('easterEggBtn'), 'click', () => this.showDevelopersModal());
         
         // Обработка изменения размера окна
         window.addEventListener('resize', utils.debounce(() => {
@@ -58,14 +64,26 @@ const app = {
         const mobileMenu = utils.get('mobileMenu');
         const menuToggle = utils.get('mobileMenuToggle');
         
-        mobileMenu.classList.toggle('active');
-        menuToggle.classList.toggle('active');
+        if (!mobileMenu || !menuToggle) {
+            console.error('Мобильное меню не найдено');
+            return;
+        }
         
-        // Анимация гамбургер-меню
-        if (menuToggle.classList.contains('active')) {
-            menuToggle.innerHTML = '✕';
-        } else {
+        const isActive = mobileMenu.classList.contains('active');
+        
+        if (isActive) {
+            // Закрываем меню
+            mobileMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
             menuToggle.innerHTML = '<span></span><span></span><span></span>';
+            console.log('📱 Мобильное меню закрыто');
+        } else {
+            // Открываем меню
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('active');
+            menuToggle.classList.add('active');
+            menuToggle.innerHTML = '✕';
+            console.log('📱 Мобильное меню открыто');
         }
     },
     
@@ -88,6 +106,7 @@ const app = {
         if (e.key === 'Escape') {
             authManager.closeAllModals();
             readerManager.closeSettingsPanel();
+            this.closeDevelopersModal();
             
             const userMenu = utils.get('userMenu');
             if (userMenu) userMenu.classList.remove('active');
@@ -129,6 +148,42 @@ const app = {
                 );
                 utils.saveToStorage('has-visited', true);
             }, 1000);
+        }
+    },
+    
+    // Показать модальное окно разработчиков
+    showDevelopersModal: function() {
+        const modal = utils.get('developersModal');
+        if (modal) {
+            modal.style.display = 'block';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+        
+        // Добавляем обработчик закрытия (если еще не добавлен)
+        const closeBtn = utils.get('closeDevelopersModal');
+        if (closeBtn && !closeBtn.hasAttribute('data-listener-added')) {
+            utils.on(closeBtn, 'click', () => this.closeDevelopersModal());
+            closeBtn.setAttribute('data-listener-added', 'true');
+        }
+        
+        // Закрытие по клику вне модального окна
+        utils.on(modal, 'click', (e) => {
+            if (e.target === modal) {
+                this.closeDevelopersModal();
+            }
+        });
+    },
+    
+    // Закрыть модальное окно разработчиков
+    closeDevelopersModal: function() {
+        const modal = utils.get('developersModal');
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
         }
     },
     
